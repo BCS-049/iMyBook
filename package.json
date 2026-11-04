@@ -1,0 +1,29 @@
+{
+  "name": "imybook",
+  "version": "1.0.0",
+  "description": "iMybook - a reading book desktop application built with Electron",
+  "keywords": [
+    "electron",
+    "books",
+    "reading-list",
+    "open-library"
+  ],
+  "homepage": "https://github.com/BCS-049/iMyBook#readme",
+  "bugs": {
+    "url": "https://github.com/BCS-049/iMyBook/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BCS-049/iMyBook.git"
+  },
+  "license": "MIT",
+  "author": "Your Name",
+  "type": "commonjs",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^45.2.2"
+  }
+}

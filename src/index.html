@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; img-src 'self' https: data:; connect-src https:; style-src 'self'; script-src 'self'">
+  <title>iMybook - Search Books</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ===== Navigation bar (same markup on every page) ===== -->
+  <header class="navbar">
+    <a class="brand" href="index.html">
+      <span class="brand-mark" aria-hidden="true">&#128214;</span>
+      <span class="brand-name">iMybook</span>
+    </a>
+    <nav aria-label="Main navigation">
+      <ul class="nav-links">
+        <li><a href="index.html" aria-current="page">Search &amp; Suggestions</a></li>
+        <li><a href="reading-list.html">My Reading List <span id="navListCount" class="count-pill">0</span></a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="page">
+
+    <section class="page-intro">
+      <h1>Find your next book</h1>
+      <p>Search the library by title, author or subject, or let iMybook suggest something that fits your mood and time.</p>
+    </section>
+
+    <div class="two-col">
+
+      <!-- ===== Search panel ===== -->
+      <section class="panel" aria-labelledby="searchHeading">
+        <h2 id="searchHeading">Search the library</h2>
+
+        <form id="searchForm" novalidate>
+          <div class="field">
+            <label for="searchInput">Search words</label>
+            <input type="text" id="searchInput" name="searchInput" placeholder="e.g. Harry Potter, Tolkien, algorithms" autocomplete="off">
+            <p class="hint">Type at least 2 characters.</p>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="searchType">Search by</label>
+              <select id="searchType" name="searchType">
+                <option value="q">Anything</option>
+                <option value="title">Title</option>
+                <option value="author">Author</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="genreSelect">Genre</label>
+              <select id="genreSelect" name="genreSelect">
+                <option value="">All genres</option>
+                <option value="fantasy">Fantasy</option>
+                <option value="science_fiction">Science fiction</option>
+                <option value="mystery_and_detective_stories">Mystery &amp; detective</option>
+                <option value="romance">Romance</option>
+                <option value="horror">Horror</option>
+                <option value="historical_fiction">Historical fiction</option>
+                <option value="biography">Biography</option>
+                <option value="history">History</option>
+                <option value="self-help">Self-help</option>
+                <option value="programming">Programming</option>
+                <option value="childrens_literature">Children's</option>
+                <option value="poetry">Poetry</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="searchError" class="message message-error" role="alert" hidden></div>
+
+          <div class="button-row">
+            <button type="submit" id="searchBtn" class="btn btn-primary">Search books</button>
+            <button type="button" id="clearBtn" class="btn btn-ghost">Clear</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- ===== Suggestion panel ===== -->
+      <section class="panel panel-accent" aria-labelledby="suggestHeading">
+        <h2 id="suggestHeading">What should I read next?</h2>
+        <p class="panel-note">Tell us what you are in the mood for and we will pick a match.</p>
+
+        <form id="suggestForm" novalidate>
+          <div class="field">
+            <label for="suggestGenre">Favourite genre <span class="required">*</span></label>
+            <select id="suggestGenre" name="suggestGenre">
+              <option value="">Choose a genre</option>
+              <option value="fantasy">Fantasy</option>
+              <option value="science_fiction">Science fiction</option>
+              <option value="mystery_and_detective_stories">Mystery &amp; detective</option>
+              <option value="romance">Romance</option>
+              <option value="horror">Horror</option>
+              <option value="historical_fiction">Historical fiction</option>
+              <option value="biography">Biography</option>
+              <option value="history">History</option>
+              <option value="self-help">Self-help</option>
+              <option value="programming">Programming</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="suggestMood">Reading mood <span class="required">*</span></label>
+            <select id="suggestMood" name="suggestMood">
+              <option value="">Choose a mood</option>
+              <option value="relax">Relax and unwind</option>
+              <option value="learn">Learn something new</option>
+              <option value="escape">Escape into a story</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="suggestTime">Time you can spend each day <span class="required">*</span></label>
+            <select id="suggestTime" name="suggestTime">
+              <option value="">Choose a time</option>
+              <option value="15">About 15 minutes</option>
+              <option value="30">About 30 minutes</option>
+              <option value="60">1 hour or more</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="suggestAuthor">Favourite author <span class="optional">(optional)</span></label>
+            <input type="text" id="suggestAuthor" name="suggestAuthor" placeholder="e.g. Agatha Christie" autocomplete="off">
+          </div>
+
+          <div id="suggestError" class="message message-error" role="alert" hidden></div>
+
+          <button type="submit" id="suggestBtn" class="btn btn-secondary btn-block">Suggest a book</button>
+        </form>
+
+        <div id="suggestionBox" class="suggestion-box" aria-live="polite" hidden>
+          <h3 id="suggestionTitle"></h3>
+          <p id="suggestionMeta" class="suggestion-meta"></p>
+          <p id="suggestionReason"></p>
+          <p id="suggestionTip" class="suggestion-tip" hidden></p>
+          <button type="button" id="saveSuggestionBtn" class="btn btn-small btn-primary" hidden>Add to my reading list</button>
+        </div>
+
+        <div class="recent">
+          <div class="recent-header">
+            <h3>Recent suggestions</h3>
+            <button type="button" id="clearSuggestionsBtn" class="btn btn-ghost btn-small" hidden>Clear</button>
+          </div>
+          <ul id="recentSuggestions" class="recent-list"></ul>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ===== Results ===== -->
+    <section class="results-section" aria-labelledby="resultsHeading">
+      <div class="results-header">
+        <h2 id="resultsHeading">Results</h2>
+        <p id="resultsCount" class="results-count" aria-live="polite">No search yet</p>
+      </div>
+
+      <div id="statusMessage" class="message" role="status" hidden></div>
+
+      <div id="loadingIndicator" class="loading" hidden>
+        <span class="spinner" aria-hidden="true"></span>
+        <span>Searching the shelves&hellip;</span>
+      </div>
+
+      <div id="bookResults" class="book-grid">
+        <p class="empty-state">Your search results will appear here. Try searching for a title or pick a genre.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+  <footer class="footer">
+    <p>iMybook &middot; Book data from Google Books</p>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/search.js"></script>
+</body>
+</html>

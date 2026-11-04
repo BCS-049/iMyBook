@@ -1,0 +1,412 @@
+/* =========================================================
+   iMybook - style.css
+   Theme: reading room at night. Dark walnut surfaces,
+   parchment text, brass accents, library-green highlights.
+   ========================================================= */
+
+:root {
+  --bg: #1d1510;            /* walnut shadow */
+  --surface: #2a1e17;       /* panel wood */
+  --surface-2: #35271e;     /* raised wood */
+  --line: #4a382b;          /* leather stitching */
+  --text: #f0e4cc;          /* parchment */
+  --text-muted: #b9a88c;    /* aged paper */
+  --brass: #d4a94e;         /* brass fittings */
+  --brass-dark: #a8812f;
+  --green: #5f8a6a;         /* library lamp green */
+  --danger: #d96b5a;
+  --ok: #7fb58a;
+
+  --font-serif: Georgia, "Palatino Linotype", "Book Antiqua", serif;
+  --font-sans: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+
+  --radius: 6px;
+  --space: 1rem;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1, h2, h3 { font-family: var(--font-serif); font-weight: 700; line-height: 1.2; }
+h1 { font-size: 2.1rem; }
+h2 { font-size: 1.35rem; margin-bottom: 0.75rem; }
+h3 { font-size: 1.1rem; margin-bottom: 0.4rem; }
+
+a { color: var(--brass); }
+
+:focus-visible {
+  outline: 2px solid var(--brass);
+  outline-offset: 2px;
+}
+
+[hidden] { display: none !important; }
+
+/* ---------- Navigation bar ---------- */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 2rem;
+  background: #150f0b;
+  border-bottom: 3px solid var(--brass-dark);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  color: var(--text);
+}
+.brand-mark { font-size: 1.6rem; }
+.brand-name { font-family: var(--font-serif); font-size: 1.5rem; font-weight: 700; letter-spacing: 0.02em; }
+
+.nav-links { display: flex; gap: 0.5rem; list-style: none; }
+
+.nav-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1rem;
+  border-radius: var(--radius);
+  color: var(--text-muted);
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 2px solid transparent;
+}
+.nav-links a:hover { color: var(--text); background: var(--surface); }
+.nav-links a[aria-current="page"] {
+  color: var(--brass);
+  background: var(--surface);
+  border-bottom-color: var(--brass);
+}
+
+.count-pill {
+  min-width: 1.5rem;
+  padding: 0 0.45rem;
+  border-radius: 999px;
+  background: var(--brass);
+  color: #1d1510;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* ---------- Page layout ---------- */
+.page {
+  flex: 1;
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 2rem 2rem 3rem;
+}
+
+.page-intro { margin-bottom: 1.75rem; }
+.page-intro p { color: var(--text-muted); max-width: 60ch; margin-top: 0.4rem; }
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+.two-col-list { grid-template-columns: minmax(300px, 380px) 1fr; }
+
+/* ---------- Panels ---------- */
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+}
+.panel-accent { border-top: 4px solid var(--green); }
+.panel-note { color: var(--text-muted); font-size: 0.92rem; margin-bottom: 1rem; }
+
+/* ---------- Forms ---------- */
+.field { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 1rem; flex: 1; }
+.field-row { display: flex; gap: 1rem; }
+
+label { font-size: 0.92rem; font-weight: 600; }
+.required { color: var(--danger); }
+.optional { color: var(--text-muted); font-weight: 400; }
+.hint { font-size: 0.82rem; color: var(--text-muted); }
+
+input, select, textarea {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  font: inherit;
+  color: var(--text);
+  background: #1d1510;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+input::placeholder, textarea::placeholder { color: #86765f; }
+input:hover, select:hover, textarea:hover { border-color: var(--brass-dark); }
+input:focus, select:focus, textarea:focus { outline: none; border-color: var(--brass); box-shadow: 0 0 0 2px rgba(212, 169, 78, 0.3); }
+input.invalid, select.invalid, textarea.invalid { border-color: var(--danger); }
+textarea { resize: vertical; }
+select option { background: #1d1510; color: var(--text); }
+
+/* ---------- Buttons ---------- */
+.button-row { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+.btn {
+  padding: 0.65rem 1.25rem;
+  font: inherit;
+  font-weight: 600;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+.btn-primary { background: var(--brass); color: #1d1510; }
+.btn-primary:hover { background: #e3bb67; }
+.btn-secondary { background: var(--green); color: #fff; }
+.btn-secondary:hover { background: #6e9c7a; }
+.btn-ghost { background: transparent; color: var(--text); border-color: var(--line); }
+.btn-ghost:hover { background: var(--surface-2); }
+.btn-danger { background: transparent; color: var(--danger); border-color: var(--danger); }
+.btn-danger:hover { background: var(--danger); color: #1d1510; }
+.btn-small { padding: 0.35rem 0.8rem; font-size: 0.88rem; }
+.btn-block { width: 100%; }
+.btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+/* ---------- Messages ---------- */
+.message {
+  margin-bottom: 1rem;
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--radius);
+  border-left: 4px solid var(--brass);
+  background: var(--surface-2);
+  font-size: 0.93rem;
+}
+.message-error { border-left-color: var(--danger); background: rgba(217, 107, 90, 0.15); color: #ff9d8e; font-weight: 600; }
+.message-success { border-left-color: var(--ok); background: rgba(127, 181, 138, 0.12); }
+
+/* ---------- Suggestion box ---------- */
+.suggestion-box {
+  margin-top: 1.25rem;
+  padding: 1rem;
+  background: var(--surface-2);
+  border: 1px dashed var(--brass);
+  border-radius: var(--radius);
+}
+.suggestion-box p { color: var(--text-muted); margin-bottom: 0.75rem; font-size: 0.93rem; }
+
+/* ---------- Search results ---------- */
+.results-section, .list-section { min-width: 0; }
+.results-section { margin-top: 2.5rem; }
+
+.results-header { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; border-bottom: 1px solid var(--line); margin-bottom: 1.25rem; padding-bottom: 0.4rem; }
+.results-header h2 { margin-bottom: 0; }
+.results-count { color: var(--text-muted); font-size: 0.92rem; }
+
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 1.1rem;
+}
+
+/* Book card: the coloured left edge works like a book spine */
+.book-card {
+  display: flex;
+  gap: 0.9rem;
+  padding: 0.9rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 8px solid var(--brass-dark);
+  border-radius: 3px var(--radius) var(--radius) 3px;
+}
+.book-card:nth-child(4n+2) { border-left-color: var(--green); }
+.book-card:nth-child(4n+3) { border-left-color: #8c4a3c; }
+.book-card:nth-child(4n+4) { border-left-color: #4f6b8c; }
+
+.book-cover {
+  flex: 0 0 80px;
+  width: 80px;
+  height: 120px;
+  object-fit: cover;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+}
+
+.book-cover-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+}
+
+.book-info { min-width: 0; display: flex; flex-direction: column; gap: 0.2rem; }
+.book-title { font-family: var(--font-serif); font-size: 1.05rem; font-weight: 700; line-height: 1.25; }
+.book-author { color: var(--brass); font-size: 0.92rem; }
+.book-meta { color: var(--text-muted); font-size: 0.84rem; }
+.book-time { color: var(--ok); font-size: 0.86rem; font-weight: 600; }
+.book-actions { margin-top: auto; padding-top: 0.5rem; display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+.empty-state {
+  grid-column: 1 / -1;
+  padding: 2rem 1rem;
+  text-align: center;
+  color: var(--text-muted);
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+}
+
+/* ---------- Loading ---------- */
+.loading { display: flex; align-items: center; gap: 0.75rem; padding: 1rem 0; color: var(--text-muted); }
+.spinner {
+  width: 1.2rem; height: 1.2rem;
+  border: 3px solid var(--line);
+  border-top-color: var(--brass);
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---------- Reading list page ---------- */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+.stat {
+  display: flex;
+  flex-direction: column;
+  padding: 0.9rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.stat-number { font-family: var(--font-serif); font-size: 1.9rem; font-weight: 700; color: var(--brass); line-height: 1.1; }
+.stat-label { color: var(--text-muted); font-size: 0.85rem; }
+
+.toolbar { display: flex; gap: 1rem; }
+.toolbar .field:first-child { flex: 2; }
+
+.book-list { display: flex; flex-direction: column; gap: 1rem; }
+.book-list .book-card { align-items: stretch; }
+
+.badge {
+  display: inline-block;
+  padding: 0.1rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  border: 1px solid var(--line);
+  width: fit-content;
+}
+.badge-want { color: var(--brass); border-color: var(--brass-dark); }
+.badge-reading { color: #8fc0e0; border-color: #4f6b8c; }
+.badge-finished { color: var(--ok); border-color: var(--green); }
+
+.progress { height: 8px; background: #1d1510; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; margin: 0.3rem 0; }
+.progress-bar { height: 100%; width: 0; background: var(--green); }
+
+/* ---------- Calculator ---------- */
+.calculator { margin-top: 1.75rem; padding-top: 1.25rem; border-top: 1px solid var(--line); }
+.calc-result {
+  margin-top: 1rem;
+  padding: 0.9rem;
+  background: var(--surface-2);
+  border-left: 4px solid var(--green);
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+}
+
+/* ---------- Toast ---------- */
+.toast-container { position: fixed; right: 1.25rem; bottom: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem; z-index: 50; }
+.toast {
+  padding: 0.7rem 1.1rem;
+  background: var(--surface-2);
+  border: 1px solid var(--brass);
+  border-left-width: 5px;
+  border-radius: var(--radius);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+  font-size: 0.93rem;
+}
+.toast-error { border-color: var(--danger); }
+
+/* ---------- Footer ---------- */
+.footer { padding: 1rem 2rem; text-align: center; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--line); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .two-col, .two-col-list { grid-template-columns: 1fr; }
+  .navbar { padding: 0.75rem 1rem; flex-wrap: wrap; }
+  .page { padding: 1.25rem 1rem 2.5rem; }
+}
+@media (max-width: 520px) {
+  .field-row, .toolbar { flex-direction: column; gap: 0; }
+  .nav-links a { padding: 0.5rem 0.65rem; font-size: 0.9rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner { animation: none; }
+}
+
+/* ---------- Reading list table ---------- */
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); }
+.data-table { width: 100%; border-collapse: collapse; font-size: 0.93rem; }
+.data-table th, .data-table td { padding: 0.7rem 0.8rem; text-align: left; vertical-align: middle; }
+.data-table thead { background: var(--surface-2); }
+.data-table th { font-family: var(--font-serif); font-weight: 700; border-bottom: 2px solid var(--brass-dark); white-space: nowrap; }
+.data-table tbody tr { border-bottom: 1px solid var(--line); }
+.data-table tbody tr:last-child { border-bottom: none; }
+.data-table tbody tr:hover { background: rgba(212, 169, 78, 0.06); }
+.data-table .row-editing { background: rgba(95, 138, 106, 0.15); }
+.cell-title { font-family: var(--font-serif); font-weight: 700; }
+.actions-cell { white-space: nowrap; }
+.actions-cell .btn + .btn { margin-left: 0.4rem; }
+.inline-select { padding: 0.35rem 0.5rem; width: auto; min-width: 10rem; }
+
+.toast-success { border-color: var(--ok); }
+.toast-error { border-color: var(--danger); color: #ff9d8e; }
+
+/* ---------- Extra book card details ---------- */
+.book-desc {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;          /* show at most 3 lines of the description */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.book-rating { color: var(--brass); font-size: 0.86rem; font-weight: 600; }
+
+/* ---------- Suggestion box extras ---------- */
+.suggestion-meta { color: var(--brass); font-size: 0.9rem; margin-bottom: 0.4rem; }
+.suggestion-box .suggestion-tip { color: var(--ok); font-style: italic; }
+
+.recent { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+.recent-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; }
+.recent-header h3 { margin-bottom: 0; }
+.recent-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+.recent-list li { font-size: 0.88rem; padding: 0.5rem 0.7rem; background: var(--surface-2); border-left: 3px solid var(--green); border-radius: 3px; }
+.recent-list .recent-title { font-weight: 700; display: block; }
+.recent-list .recent-detail { color: var(--text-muted); font-size: 0.8rem; }
+.recent-list li.recent-empty { border-left-color: var(--line); color: var(--text-muted); }
+
+/* ---------- Left column on the reading list page ---------- */
+.side-stack { display: flex; flex-direction: column; gap: 1.5rem; min-width: 0; }
+.calc-result p { margin-bottom: 0.25rem; }
+.calc-result p:last-child { margin-bottom: 0; }
